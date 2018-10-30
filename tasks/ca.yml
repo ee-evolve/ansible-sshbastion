@@ -1,0 +1,29 @@
+---
+
+- name: Make sure ssh_ca exists
+  stat: 
+    path: /root/.ssh/ssh_ca
+  register: cacertssh
+
+- name: Create the ssh_ca if it doesn't exist. This will run without a prompt.
+  command: cd /root/.ssh/; ssh-keygen -f ssh_ca -N ""
+  when: cacertssh.stat.exists == False 
+
+- name: Fix permissions for the ssh_ca
+  file:
+    path: "/root/.ssh/{{ item }}"
+    state: file
+    mode: 0600
+    owner: root
+    group: root
+  with_items:
+    - ssh_ca
+    - ssh_ca.pub
+
+- name: Set up the SSH key for the support session as the {{ loginuser }}
+  command: ssh-keygen -t ed25519 -C "hackday"
+
+- name: Sign the keypair with the CA
+  command: ssh-keygen -s ssh_ca -I root -n root -V +1d ~/.ssh/id_ed25519.pub
+  args: 
+    chdir: /root/.ssh
