@@ -27,3 +27,18 @@
   command: ssh-keygen -s ssh_ca -I root -n root -V +1d ~/.ssh/id_ed25519.pub
   args: 
     chdir: /root/.ssh
+  
+- name: Sign the keypair with the CA
+  command: ssh-keygen -s ssh_ca -I {{ loginuser }} -n {{ loginuser }} -V +8h ~/.ssh/id_ed25519.pub
+
+- name: Check that the key has the right permissions and print these permissions
+  command: ssh-key -L -f id_ed25519-cert.pub
+  register: certvalid
+
+- debug: 
+    var: certvalid
+
+- name: Print this certificate for use by the user
+  debug: 
+    msg: "{{lookup('file', '/root/.ssh/id_ed25519-cert.pub') }}"
+
