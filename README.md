@@ -27,7 +27,7 @@ The infrastructure is spun up on Scaleway instances. The boxes all contain ubunt
 ## AWX 
 The AWX project is the open source version of ansible tower, sponsored by Redhat. AWX allows ansible playbooks to be deployed with a visual dashboard, role-based access control, job scheduling with inventory management. Here is what our default AWX dashboard looks like. 
 
-[awxdashboard](files/awxdashboard.png)
+![awxdashboard](files/awxdashboard.png)
 
 Deploying AWX was done using the steps below.
 
