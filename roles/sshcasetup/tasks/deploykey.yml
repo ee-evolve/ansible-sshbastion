@@ -1,0 +1,4 @@
+---
+
+- name: Copy the ssh_ca public key from the bastion onto {{  remotehostip }}
+  
