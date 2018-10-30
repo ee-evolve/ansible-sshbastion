@@ -1,9 +1,9 @@
 # ansible-sshbastion
 Ansible playbooks for managing an SSH Bastion
 
-/Evolve Hackathon 31 10 2018/
+Evolve Hackathon 31 10 2018
 
-/Participants/
+Participants
 Ali Farooqui
 Patrick Birchall
 
@@ -69,3 +69,20 @@ We have tested and confirmed that
 ### Writing the playbook that deploys the role based access control through AWX
 
 With our current method for deploying SSH keys, only users that have access to AWX will be able to deploy SSH.
+
+The playbook is broken into two steps. One targets the bastion, and the other targets the remote host that the authorised keys need to be uploaded to. 
+
+This can be seen in the template below.
+
+```
+---
+
+- hosts: bastion
+  roles:
+    - sshcasetup
+
+- hosts: all:!bastion
+  roles: 
+    - deploykey
+
+```

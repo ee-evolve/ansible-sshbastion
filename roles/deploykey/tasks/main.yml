@@ -1,4 +1,5 @@
 ---
 
-- name: Copy the authorized key from the the bastion onto the remote host
+# WIP
+#- name: Copy the authorized key from the the bastion onto the remote host
   

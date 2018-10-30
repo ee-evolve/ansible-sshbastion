@@ -1,0 +1,9 @@
+---
+
+- hosts: bastion
+  roles:
+    - sshcasetup
+
+- hosts: all:!bastion
+  roles: 
+    - deploykey
