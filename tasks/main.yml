@@ -1,0 +1,3 @@
+---
+
+- name: Make sure ssh_ca exists
